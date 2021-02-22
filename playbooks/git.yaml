@@ -1,0 +1,8 @@
+---
+- hosts: all 
+  become: yes
+  tasks:
+  - name: installing git on all machines
+    apt:       
+      name: git  
+      state: present

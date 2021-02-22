@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: installing nginx 
+    apt:
+      name: nginx
+      state: present
+  - name: stopping ngnix service
+    service:
+      name: nginx
+      state: stopped 

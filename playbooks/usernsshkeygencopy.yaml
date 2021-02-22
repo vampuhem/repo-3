@@ -1,0 +1,22 @@
+---
+- hosts: elis
+  become: yes
+  tasks:
+  - name: Create elis-user account on servers
+    user:
+      name: 'elis-user'
+      comment: 'ELIS Team User'
+      groups: 'wheel'
+      append: 'yes'
+      shell: '/bin/bash'
+
+  - name: Creates directory
+    file:
+      path: '/home/elis-user/.ssh'
+      state: 'directory'
+
+  - name: Copy public key of elis-user from satellite to remote hosts
+    copy: 
+      src: '/home/elis-user/.ssh/id_rsa.pub'
+      dest: '/home/elis-user/.ssh/authorized_keys'
+      remote_src: yes

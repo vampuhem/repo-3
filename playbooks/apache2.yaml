@@ -1,0 +1,8 @@
+---
+- hosts: node1
+  become: yes
+  tasks:
+  - name: installing apache2
+    apt:
+      name: apache2
+      state: present

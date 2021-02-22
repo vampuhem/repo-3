@@ -1,0 +1,43 @@
+## Playbook to modify sshd_config to replace default variables
+## with our ELIS optimzed/hardened values 
+
+---
+- hosts: node4
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: Backup of sshd_config file
+    copy:
+      dest: '/etc/ssh/sshd_config.bk'
+      src: '/etc/ssh/sshd_config'
+      remote_src: yes
+
+  - name: Replace PasswordAuthentication
+    replace:
+      path: /etc/ssh/sshd_config
+      regexp: 'PasswordAuthentication no'
+      replace: 'PasswordAuthentication yes'
+
+  - name: Replace GSSAPIAuthentication
+    replace:
+      path: /etc/ssh/sshd_config
+      regexp: '#GSSAPIAuthentication no'
+      replace: 'GSSAPIAuthentication no'
+
+  - name: Replace AllowTcpForwarding
+    replace:
+      path: /etc/ssh/sshd_config
+      regexp: '#AllowTcpForwarding yes'
+      replace: 'AllowTcpForwarding no'
+
+  - name: Replace UseDNS
+    replace:
+      path: /etc/ssh/sshd_config
+      regexp: '#UseDNS no'
+      replace: 'UseDNS no'
+
+  - name: Restart sshd service
+    service:
+      name: sshd
+      state: restarted
+

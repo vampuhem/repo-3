@@ -1,0 +1,33 @@
+---
+- hosts: qa
+  become: yes
+  tasks:
+  - name: replace string
+    replace:
+      path: /etc/ssh/sshd_config.bk
+      regexp: "PasswordAuthentication no"
+      replace: "PasswordAuthentication yes"
+
+  - name: replace string
+    replace:
+      path: /etc/ssh/sshd_config.bk
+      regexp: "#GSSAPIAuthentication no"
+      replace: "GSSAPIAuthentication no"
+  
+  - name: replace string
+    replace:
+      path: /etc/ssh/sshd_config.bk
+      regexp: "#AllowTcpForwarding yes"
+      replace: "AllowTcpForwarding no"
+
+  - name: replace string
+    replace:
+      path: /etc/ssh/sshd_config.bk 
+      regexp: "#UseDNS no"
+      replace: "UseDNS no"
+
+  - name: restart sshd service
+    service:
+      name: sshd
+      state: restarted
+     

@@ -1,0 +1,17 @@
+---
+- hosts: elis
+  become: yes
+  tasks:
+  - name: Create elis-user account on servers
+    user:
+      name: 'elis-user'
+      comment: 'ELIS Team User'
+      groups: 'wheel'
+      append: 'yes'
+      shell: '/bin/bash'
+
+  - name: Add authorized keys
+    authorized_key:
+      user: elis-user
+      state: present
+      key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC1VsenknIs3jc5o3pLJdp2oKLJ+zmpsUbZ0Ziu8dzIWR2q4QaCuphDs8A20ZxY5UQwl3NfOO1XqPvU6eqy+RfkJ9RvhcXzwyk5c8bBVzzWJ93IEEjNfsf4eEuuwaJ4oBZUxGZaFnurvR1WytEaS1yOi7RMTzt7mJQbrIOZRIYyeiLQxLeM2SP0pZWU2ZN0evRlv1mjEmXUR8ejk30W1h2hv9mzlCHsX75rUjLJ1M8fdSmhv847CjXwvwYujJcKaKW71Ezpyg8sPIhLKv1H7RvQ8qfnIHfA7iNNim0uB88fD2VVi9m1/pLsKl9tawBhqtuq8Ts65djirZncI4oV7rJd elis-user@ip-172-31-87-45"         

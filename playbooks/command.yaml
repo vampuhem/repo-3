@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: create a file
+    command: touch /home/ansible/test.txt
+  - name: add content to file
+    command: echo "hello" >> /home/ansible/test.txt
+  - name: read the content of file
+    command: cat /home/ansible/test.txt
+    register: file_content
+  - debug:
+      msg: "{{ file_content }}"    

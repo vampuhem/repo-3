@@ -1,0 +1,20 @@
+---
+- hosts: node1
+  become: yes 
+  tasks:
+  - name: installing postfix on the server
+    apt:
+      name: postfix
+      state: present
+
+  - name: starting postfix service
+    service:
+      name: postfix
+      state: started
+
+  - name: replace string
+    replace:
+      path: /etc/postfix/main.cf
+      regexp: "relayhost ="
+      replace: "relayhost = inet.abb.com"
+

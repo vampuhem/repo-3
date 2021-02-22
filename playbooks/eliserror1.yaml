@@ -1,0 +1,25 @@
+---
+- hosts: elis
+  connection: local
+  tasks:
+  - name: Create elis-user account on servers
+    user:
+      name: 'elis-user'
+      comment: 'ELIS Team User'
+      groups: 'wheel'
+      append: 'yes'
+      shell: '/bin/bash'
+
+
+  - name: Creates directory
+    file:
+      path: '/home/elis-user/.ssh'
+      state: 'directory'
+      owner: 'elis-user'
+      group: 'elis-user'
+
+  - name: Set authorized key took from file
+    authorized_key:
+      user: 'elis-user'
+      state: 'present'
+      key: "{{ lookup('file', '/home/elis-user/.ssh/id_rsa.pub') }}"

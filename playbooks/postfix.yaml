@@ -16,5 +16,5 @@
     replace:
       path: /etc/postfix/main.cf
       regexp: "relayhost ="
-      replace: "relayhost = inet.abb.com"
+      replace: "relayhost = inet.xyz.com"
 

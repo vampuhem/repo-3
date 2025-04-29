@@ -14,7 +14,6 @@ pipeline {
                 echo "backend"
                 withGradle() {
                     sh './gradlew -v'
-                    }
                 }
             }
         }

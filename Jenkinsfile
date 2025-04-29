@@ -1,19 +1,19 @@
 pipeline {
     agent any
-    stages {
-        stage('runfrontend') {
-            steps {
-                echo "frontend"
-                nodejs('Node-10-17') {
-                    sh 'yarn install'
+    stages{
+        stage('run frontend'){
+            steps{
+                echo 'frontend'
+                nodejs('node-10-17') {
+                    sh 'yarn install'                      
                 }
             }
         }
-        stage('runbackend') {
-            steps {
-                echo "backend"
+        stage('run backend'){
+            steps{
+                echo 'backend'
                 withGradle() {
-                    sh './gradlew -v'
+                    sh './gradlew -v'                      
                 }
             }
         }
